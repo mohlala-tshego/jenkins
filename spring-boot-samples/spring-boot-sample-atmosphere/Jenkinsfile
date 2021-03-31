@@ -1,5 +1,7 @@
 pipeline {
-	agent any
+	agent {
+		label 'Agent'
+	}
 	environment { 
         	project_path='spring-boot-samples/spring-boot-sample-atmosphere'
     	}
