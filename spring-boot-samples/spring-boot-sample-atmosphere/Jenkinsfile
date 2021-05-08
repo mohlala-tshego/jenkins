@@ -7,7 +7,7 @@ pipeline {
 		maven 'M3.6'
 	}
 	parameters { 
-		string(name: 'MVN_OPTION', defaultValue: 'package', description: '') 
+         	string(name: 'MVN_OPTION', defaultValue: 'package', description: '') 
 	}
 	options {
         	timeout(time: 1, unit: 'HOURS') 
@@ -27,6 +27,19 @@ pipeline {
 				withSonarQubeEnv('Sonar') {
     					sh "mvn sonar:sonar -f $project_path/pom.xml"
 				}
+			}
+		}
+		stage('Quality Check') {
+			steps {
+				script {
+                    			sleep 20
+                    			timeout(time: 1, unit: 'HOURS') { 
+                        			def qg = waitForQualityGate() 
+                        			if (qg.status != 'OK') {
+                            				error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        			}
+                    			}   
+                		}
 			}
 		}
 		stage('Post Build Actions') {
