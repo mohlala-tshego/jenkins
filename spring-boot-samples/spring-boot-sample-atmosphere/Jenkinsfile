@@ -18,7 +18,13 @@ pipeline {
         	cron('0 12 * * 0')
     	}
 	stages {
-
+		stage('Sonar Scanner') {
+			steps {
+				withSonarQubeEnv('Sonar') {
+    					sh "mvn sonar:sonar -f $project_path/pom.xml"
+				}
+			}
+		}
 		stage('Build') {
 			steps {
     				sh "mvn clean $MVN_OPTION -f $project_path/pom.xml"
