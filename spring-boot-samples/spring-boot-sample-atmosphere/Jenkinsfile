@@ -6,7 +6,7 @@ pipeline {
         	project_path='spring-boot-samples/spring-boot-sample-atmosphere'
     	}
 	tools {
-		maven 'M3.6'
+		maven 'M3.8'
 	}
 	parameters { 
 		string(name: 'MVN_OPTION', defaultValue: 'package', description: '') 
