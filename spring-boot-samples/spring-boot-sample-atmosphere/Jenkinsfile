@@ -21,7 +21,7 @@ pipeline {
 
 		stage('Build') {
 			steps {
-    				sh "mvn clean package -f $project_path/pom.xml"
+    				sh "mvn clean $MVN_OPTION -f $project_path/pom.xml"
     			}
 		}
 		stage('Post Build Actions') {
